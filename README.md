@@ -38,4 +38,40 @@ Further there are some *Advanced features*:-
 
 # Some of the snaps from the Project. 
      Explore it to know more! 
-     
+
+
+
+
+
+
+**Matches:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/upcoming.jpeg?raw=true)
+
+**Create/Join Contest:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/contest.jpeg?raw=true)
+
+**Select Players:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/players.jpeg?raw=true)
+
+**Players Selected List:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/players_final.jpeg?raw=true)
+
+**Scorecard:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/scorecard.jpeg?raw=true)
+
+**Chatting with friends:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/chat.jpeg?raw=true)
+
+**Profile:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/profile.jpeg?raw=true)
+
+**Transaction history:**
+
+![alt text](https://github.com/kmishul/Mini-project/blob/main/transaction.jpeg?raw=true)
