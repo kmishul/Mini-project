@@ -1,0 +1,137 @@
+<link rel="stylesheet" href="<%= assetPath('css/match-card.css') %>">
+
+<div class="container">
+
+    <% function compare( a, b ) { %>
+        <% if ( a.date < b.date ){ %>
+        <%   return -1; %>
+        <% } %>
+        <% if ( a.date > b.date ){ %>
+        <%   return 1; %>
+        <% } %>
+        <% return 0; %>
+    <% } %>
+
+    <% function matchCardMakers(matches, status) { %>
+        <% for(let i = 0; i <= matches.results.length - 1; i++) { %>
+            <% let mat = matches.results[i]; %>
+            <% if(mat.home.code == "" || mat.away.code == "") {%>
+                <% continue; %>
+            <% } %> 
+            <div class="card" id="<%= mat.id %>" data-home-name="<%= mat.home.name %>" data-away-name="<%= mat.away.name %>">
+                <div class="card-body">
+                <p class="card-title"><%= mat.match_title %></p>
+                <div class="teams">
+                    <div class="match-info">
+                        <img src="<%= mat.teamHomeFlagUrl %>" alt="<%= mat.home.name %>" class="home-flag-img">
+                        <h4><%= mat.home.code %></h4>
+                    </div>
+                    <div class="match-info">
+                        <h4>vs</h4>
+                    </div>
+                    <div class="match-info">
+                        <h4><%= mat.away.code %></h4>
+                        <img src="<%= mat.teamAwayFlagUrl %>" alt="<%= mat.away.name %>" class="away-flag-img">
+                    </div>
+                </div>
+
+                <% const date1 = new Date(); %>
+                <% let d1 = new Date(mat.date); %>
+                <% let diffTime = (d1 - date1); %>
+                <% let hour = parseInt(diffTime/(60 * 60 * 1000)); %>
+                <% let min = parseInt(diffTime/(60 * 1000)) - (hour * 60); %>
+                <% let sec = parseInt(diffTime/(1000)) - (min * 60) - (hour * 3600); %>
+                <% let timer; %>
+                <% if(hour == 0){ %>
+                    <% timer = min.toString() + " m " + sec.toString() + " s "; %>
+                    <% if(min == 0){ %>
+                        <% timer = sec.toString() + " s "; %>
+                    <% } %>
+                <%} else{ %>
+                    <% timer = hour.toString() + " h " + min.toString() + " m " + sec.toString() + " s "; %>
+                <% } %>
+
+                <% if(status == 'live'){ %>
+                    <% if(diffTime > 0){ %>
+                        <p class="timer" id="<%= mat.date %>">
+                            <%= timer %>
+                        </p>
+                    <% }else{ %>
+                        <p class="live">
+                            Live
+                        </p>
+                    <% } %>
+                <% } %>
+
+                <% if(status == 'upcoming'){ %>
+                    <p class="timer" id="<%= mat.date %>">
+                        <%= timer %>
+                    </p>
+                <% } %>
+
+                <p class="match-status" id="<%= mat.date %>">
+                    <p class="upcoming-status">
+                        <% if(status == 'upcoming'){ %>
+                            Line ups are not out yet!
+                        <% } %>
+                    </p>
+
+                    <% if(status == 'past' || status == 'live' || status == "mymatch"){ %>
+                        <%= mat.status %>
+                    <% } %>
+                </p>
+
+
+
+                </div>
+            </div>
+        <% } %>
+    <% } %>
+
+    <% if(userMatches.results.length != 0) {%>
+        <div class="my-matches-container match-cards">
+            <h2 class="matches-status-heading">My Matches</h2>
+            <div class="match-card-main-container">
+                <% userMatches.results.sort( compare ); %>
+                <% matchCardMakers(userMatches, "mymatch"); %>
+            </div>
+        </div>
+    <% } %>
+
+    <% if(liveMatchesDetails.results.length != 0) {%>
+        <div class="live-matches-container match-cards">
+            <h2 class="matches-status-heading">Live Matches</h2>
+            <div class="match-card-main-container">
+                <% liveMatchesDetails.results.sort( compare ); %>
+                <% matchCardMakers(liveMatchesDetails, "live"); %>
+            </div>
+        </div>
+    <% } %>
+
+    <% if(upcomingMatchesDetails.results.length != 0) {%>
+        <div class="upcoming-matches-container match-cards">
+            <h2 class="matches-status-heading">Upcoming Matches</h2>
+            <div class="match-card-main-container">
+                <% upcomingMatchesDetails.results.sort( compare ); %>
+                <% matchCardMakers(upcomingMatchesDetails, "upcoming"); %>
+            </div>
+        </div>
+    <% } %>
+
+    <% if(pastMatchesDetails.results.length != 0) {%>
+        <div class="past-matches-container match-cards">
+            <h2 class="matches-status-heading">Past Matches</h2>
+            <div class="match-card-main-container">
+                <% pastMatchesDetails.results.sort( compare ); %>
+                <% matchCardMakers(pastMatchesDetails, "past"); %>
+            </div>
+        </div>
+    <% } %>
+    
+</div>
+
+<script src="<%= assetPath('js/card.js') %>"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
